@@ -11,7 +11,15 @@ body {
 }
 
 .wrapper {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width: min(90vw, 450px);
+    height: min(90vw, 450px);
     border: 1px solid #eb0404;
-    width: 500px;
-    height: 500px;
+}
+
+button {
+    font-size: 2vw;
 }
