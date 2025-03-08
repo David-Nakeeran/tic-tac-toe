@@ -90,53 +90,5 @@ class App {
     }
 };
 
-// function handleClicks(gameBoardObject) {
-//     const cells = document.querySelectorAll("[data-id]");
-//     let cellId;
-
-//     cells.forEach(element => {
-//         element.addEventListener("click", function(e){
-//             cellId = e.target.dataset.id;
-
-            // const outerIndex = cellId.slice(0,1);
-            // const innerIndex = cellId.slice(1,2);
-
-            // element.textContent = gameBoardObject[outerIndex][innerIndex] = "X";
-//         });
-//     });
-//     return cellId;
-// }
-
-function assignIconToBoard(gameBoardObject) {
-
-    const cells = document.querySelectorAll("[data-id]");
-        
-    let isPlayer1Active = true;
-        cells.forEach(element => {
-            element.addEventListener("click", function(e){
-                const cellId = e.target.dataset.id;
-    
-                const outerIndex = cellId.slice(0,1);
-                const innerIndex = cellId.slice(1,2);
-
-                if(!isPlayer1Active) {
-                    element.textContent = gameBoardObject[outerIndex][innerIndex] = "O";
-                    isPlayer1Active = !isPlayer1Active;
-                    return;
-                } else {
-                    element.textContent = gameBoardObject[outerIndex][innerIndex] = "X";
-                    isPlayer1Active = !isPlayer1Active;
-                }
-                
-            });
-        });
-}
-
 const app = new App();
 app.start();
-
-// renderGameBoard(gameBoard.board);
-
-
-
-// assignIconToBoard(gameController.board);
