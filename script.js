@@ -30,6 +30,15 @@ class GameController {
             return "X";
         }
     }
+
+    isCellEmpty(board, outerIndex, innerIndex) {
+        const cell = board[outerIndex][innerIndex];
+
+        if(cell != ""){
+            return false;
+        }
+        return true;
+    }
 }
 
 class Display {
@@ -61,8 +70,12 @@ class Display {
                     const outerIndex = cellId.slice(0,1);
                     const innerIndex = cellId.slice(1,2);
 
-                    element.textContent = this.gameController.board[outerIndex][innerIndex] = this.gameController.activePlayerSymbol();
+                    const isCellEmpty = this.gameController.isCellEmpty(this.gameController.board, outerIndex, innerIndex);
+                    if(isCellEmpty) {
+                        element.textContent = this.gameController.board[outerIndex][innerIndex] = this.gameController.activePlayerSymbol();
+                    }
                     
+
                 });
             });
     };
