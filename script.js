@@ -31,13 +31,8 @@ class GameController {
         }
     }
 
-    isCellEmpty(board, outerIndex, innerIndex) {
-        const cell = board[outerIndex][innerIndex];
-
-        if(cell != ""){
-            return false;
-        }
-        return true;
+    isCellEmpty(outerIndex, innerIndex) {
+        return this.board[outerIndex][innerIndex] === "";
     }
 }
 
@@ -67,15 +62,14 @@ class Display {
                 element.addEventListener("click", (e) => {
                     const cellId = e.target.dataset.id;
                     
-                    const outerIndex = cellId.slice(0,1);
-                    const innerIndex = cellId.slice(1,2);
+                    const outerIndex = Number(cellId.slice(0,1));
+                    const innerIndex = Number(cellId.slice(1,2));
 
-                    const isCellEmpty = this.gameController.isCellEmpty(this.gameController.board, outerIndex, innerIndex);
+                    const isCellEmpty = this.gameController.isCellEmpty(outerIndex, innerIndex);
                     if(isCellEmpty) {
                         element.textContent = this.gameController.board[outerIndex][innerIndex] = this.gameController.activePlayerSymbol();
                     }
                     
-
                 });
             });
     };
