@@ -20,20 +20,29 @@ class GameController {
         this.board = gameBoard.board;
         this.isPlayer1Active = true;
     }
+
+    activePlayerSymbol() {
+        if(!this.isPlayer1Active) {
+            this.isPlayer1Active = !this.isPlayer1Active;
+            return "O";
+        } else {
+            this.isPlayer1Active = !this.isPlayer1Active;
+            return "X";
+        }
+    }
 }
 
 class Display {
     constructor(gameController) {
-        this.gameBoard = gameController.board;
-        this.isPlayer1Active = gameController.isPlayer1Active;
+        this.gameController = gameController;
     }
 
     renderGameBoard() {
         const wrapper = document.getElementById("wrapper");
     
-        for(let i = 0; i < this.gameBoard.length; i++) {
+        for(let i = 0; i < this.gameController.board.length; i++) {
             const outIndex = [i];
-            for(let j = 0; j < this.gameBoard[i].length; j++) {
+            for(let j = 0; j < this.gameController.board[i].length; j++) {
                 const div = document.createElement("button");
                 div.setAttribute("data-id", `${outIndex}${j}`);
                 wrapper.append(div);
@@ -46,21 +55,13 @@ class Display {
         const cells = document.querySelectorAll("[data-id]");
         
             cells.forEach(element => {
-                console.log(this.gameBoard);
                 element.addEventListener("click", (e) => {
                     const cellId = e.target.dataset.id;
                     
                     const outerIndex = cellId.slice(0,1);
                     const innerIndex = cellId.slice(1,2);
 
-                    if(!this.isPlayer1Active) {
-                        element.textContent = this.gameBoard[outerIndex][innerIndex] = "O";
-                        this.isPlayer1Active = !this.isPlayer1Active;
-                        return;
-                    } else {
-                        element.textContent = this.gameBoard[outerIndex][innerIndex] = "X";
-                        this.isPlayer1Active = !this.isPlayer1Active;
-                    }
+                    element.textContent = this.gameController.board[outerIndex][innerIndex] = this.gameController.activePlayerSymbol();
                     
                 });
             });
