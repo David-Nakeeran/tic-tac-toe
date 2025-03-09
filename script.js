@@ -13,40 +13,54 @@ class Gameboard {
         ["","",""],
         ["","",""]
         ];
+    
+    isCellEmpty(outerIndex, innerIndex) {
+        return this.board[outerIndex][innerIndex] === "";
+    }
+
+    updateBoard(outerIndex, innerIndex, symbol) {
+        this.board[outerIndex][innerIndex] = symbol;
+    }
 };
 
 class GameController {
     constructor(gameBoard) {
-        this.board = gameBoard.board;
+        this.gameBoard = gameBoard;
         this.isPlayer1Active = true;
     }
 
     activePlayerSymbol() {
-        if(!this.isPlayer1Active) {
-            this.isPlayer1Active = !this.isPlayer1Active;
-            return "O";
-        } else {
-            this.isPlayer1Active = !this.isPlayer1Active;
-            return "X";
-        }
+        return this.isPlayer1Active ? "X" : "O";
     }
 
-    isCellEmpty(outerIndex, innerIndex) {
-        return this.board[outerIndex][innerIndex] === "";
+    switchPlayer() {
+        this.isPlayer1Active = !this.isPlayer1Active;
+    }
+
+    playerMove(outerIndex, innerIndex) {
+        const symbol = this.activePlayerSymbol();
+        const isCellEmpty = this.gameBoard.isCellEmpty(outerIndex, innerIndex);
+        if(isCellEmpty) {
+            this.gameBoard.updateBoard(outerIndex, innerIndex, symbol);
+            this.switchPlayer();
+            return symbol;
+        }
+        return null;
     }
 }
 
 class Display {
-    constructor(gameController) {
+    constructor(gameController, gameBoard) {
         this.gameController = gameController;
+        this.gameBoard = gameBoard;
     }
 
     renderGameBoard() {
         const wrapper = document.getElementById("wrapper");
     
-        for(let i = 0; i < this.gameController.board.length; i++) {
+        for(let i = 0; i < this.gameBoard.board.length; i++) {
             const outIndex = [i];
-            for(let j = 0; j < this.gameController.board[i].length; j++) {
+            for(let j = 0; j < this.gameBoard.board[i].length; j++) {
                 const div = document.createElement("button");
                 div.setAttribute("data-id", `${outIndex}${j}`);
                 wrapper.append(div);
@@ -55,7 +69,6 @@ class Display {
     };
 
     assignIconToBoard() {
-        
         const cells = document.querySelectorAll("[data-id]");
         
             cells.forEach(element => {
@@ -65,9 +78,9 @@ class Display {
                     const outerIndex = Number(cellId.slice(0,1));
                     const innerIndex = Number(cellId.slice(1,2));
 
-                    const isCellEmpty = this.gameController.isCellEmpty(outerIndex, innerIndex);
-                    if(isCellEmpty) {
-                        element.textContent = this.gameController.board[outerIndex][innerIndex] = this.gameController.activePlayerSymbol();
+                    const symbol = this.gameController.playerMove(outerIndex, innerIndex);
+                    if(symbol != null) {
+                        element.textContent = symbol;  
                     }
                     
                 });
@@ -81,7 +94,7 @@ class App {
         this.player2 = new Player("O");
         this.gameBoard = new Gameboard();
         this.gameController = new GameController(this.gameBoard);
-        this.display = new Display(this.gameController);
+        this.display = new Display(this.gameController, this.gameBoard);
     };
 
     start() {
