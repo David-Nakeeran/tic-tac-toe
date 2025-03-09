@@ -1,25 +1,26 @@
 * {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
 .wrapper {
-    display: grid;
-    gap: 10px;
-    grid-template-columns: repeat(3,1fr);
-    grid-template-rows: repeat(3, 1fr);
-    width: min(90vw, 450px);
-    height: min(90vw, 450px);
-    border: 1px solid #eb0404;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: min(90vw, 450px);
+  height: min(90vw, 450px);
+  border: 1px solid #eb0404;
 }
 
 button {
-    font-size: 2vw;
+  font-size: 2vw;
 }
