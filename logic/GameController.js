@@ -26,18 +26,24 @@ export default class GameController {
   }
 
   winConditions() {
-    for (let i = 0; i < this.gameBoard.board.length; i++) {
-      console.log(this.gameBoard.board[i][0]);
-      console.log(this.gameBoard.board[i][2]);
-      let rowWin = this.gameBoard.board[i].every(
-        (cell) => cell === this.gameBoard.board[i][2]
-      );
-      if (rowWin) {
-        console.log("win");
-        console.log(this.gameBoard.board[i][0]);
-        break;
-      }
+    const topRow = [...this.gameBoard.board[0]];
+    const middleRow = [...this.gameBoard.board[1]];
+    const bottomRow = [...this.gameBoard.board[2]];
+
+    let rowWin = topRow.every((cell) => cell === topRow[0]);
+    if (rowWin) {
+      console.log("win");
     }
+
+    // let rowWin = this.gameBoard.board[0].every(
+    //   (cell) => cell === this.gameBoard.board[0][2]
+    // );
+    // if (rowWin) {
+    //   console.log("win");
+    //   console.log(this.gameBoard.board[0][0]);
+    // }
+
+    for (let i = 0; i < this.gameBoard.board.length; i++) {}
   }
   //   for (let j = 0; j < this.gameBoard.board[i].length; j++) {}
   // }
