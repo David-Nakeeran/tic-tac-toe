@@ -19,3 +19,11 @@ export default class App {
     this.display.assignIconToBoard();
   }
 }
+
+/*
+Chores
+check for win conditions and ties
+button to start playing the game
+button to restart the game
+show winner or tie for end go game
+*/
