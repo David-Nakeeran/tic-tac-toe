@@ -31,6 +31,7 @@ export default class Display {
         if (symbol != null) {
           this.announcePlayerTurn();
           element.textContent = symbol;
+          this.gameController.winConditions();
         }
       });
     });
