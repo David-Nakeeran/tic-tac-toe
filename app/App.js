@@ -13,10 +13,10 @@ export default class App {
   }
 
   start() {
-    this.display.renderGameBoard();
-    this.display.playerAnnouncementPara();
-    this.display.announcePlayerTurn();
-    this.display.assignIconToBoard();
+      this.display.renderGameBoard();
+      this.display.playerAnnouncementPara();
+      this.display.announcePlayerTurn();
+      this.display.assignIconToBoard();
   }
 }
 
