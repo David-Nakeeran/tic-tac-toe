@@ -19,22 +19,33 @@ export default class Display {
 
   assignIconToBoard() {
     const cells = document.querySelectorAll("[data-id]");
+    cells.addEventListener("click", this.handleClicks())
 
-    cells.forEach((element) => {
-      element.addEventListener("click", (e) => {
-        const cellId = e.target.dataset.id;
+  //   cells.forEach((element) => {
+  //     element.addEventListener("click", this.handleClicks())
+      
+  // });
+  
+  };
+
+  handleClicks() {
+    return function listener(e) {
+      const cellId = e.target.dataset.id;
 
         const outerIndex = Number(cellId.slice(0, 1));
         const innerIndex = Number(cellId.slice(1, 2));
+        console.log(outerIndex);
 
         const symbol = this.gameController.playerMove(outerIndex, innerIndex);
         if (symbol != null) {
           this.announcePlayerTurn();
           element.textContent = symbol;
           this.gameController.winConditions();
+          this.announceWinner();
+          // this.disableGameboardClicks();
         }
-      });
-    });
+    }
+    
   }
 
   playerAnnouncementPara() {
@@ -51,5 +62,26 @@ export default class Display {
     } else {
       para.textContent = "Player 2 turn";
     }
+  }
+
+  announceWinner() {
+    let para = document.getElementById("player-announcement");
+    if (this.gameController.isWinConditionMet) {
+      if(!this.gameController.isPlayer1Active) {
+        para.textContent = "Player 1 wins the game!"
+      } else {
+        para.textContent = "Player 2 wins the game!"
+      }
+    }
+  }
+
+  disableGameboardClicks() {
+    const cells = document.querySelectorAll("[data-id]");
+    cells.forEach((element) => {
+      if(this.gameController.isWinConditionMet) {
+        console.log("Are we here");
+        element.removeEventListener('click', this.handleClicks, true)
+      }     
+    });
   }
 }
