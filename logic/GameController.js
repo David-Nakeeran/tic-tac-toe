@@ -30,14 +30,15 @@ export default class GameController {
     const middleRow = [...this.gameBoard.board[1]];
     const bottomRow = [...this.gameBoard.board[2]];
 
-    
     let topRowWin = topRow.every((cell) => cell === topRow[0] && cell != "");
-    let middleRowWin = middleRow.every((cell) => cell === middleRow[0] && cell != "");
-    let bottomRowWin = bottomRow.every((cell) => cell === bottomRow[0] && cell != "");
+    let middleRowWin = middleRow.every(
+      (cell) => cell === middleRow[0] && cell != ""
+    );
+    let bottomRowWin = bottomRow.every(
+      (cell) => cell === bottomRow[0] && cell != ""
+    );
     if (topRowWin || middleRowWin || bottomRowWin) {
       this.isWinConditionMet = true;
-      console.log(this.isWinConditionMet)
     }
-  } 
+  }
 }
-
