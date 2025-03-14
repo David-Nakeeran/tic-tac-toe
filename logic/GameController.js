@@ -32,9 +32,33 @@ export default class GameController {
     const bottomRow = [...this.gameBoard.board[2]];
 
     // columns
-    const firstColumn = [];
-    const secondColumn = [];
-    const thirdColumn = [];
+    const firstColumn = [
+      this.gameBoard.board[0][0],
+      this.gameBoard.board[1][0],
+      this.gameBoard.board[2][0],
+    ];
+    const secondColumn = [
+      this.gameBoard.board[0][1],
+      this.gameBoard.board[1][1],
+      this.gameBoard.board[2][1],
+    ];
+    const thirdColumn = [
+      this.gameBoard.board[0][2],
+      this.gameBoard.board[1][2],
+      this.gameBoard.board[2][2],
+    ];
+
+    // diagonals
+    const leftDiagonal = [
+      this.gameBoard.board[0][0],
+      this.gameBoard.board[1][1],
+      this.gameBoard.board[2][2],
+    ];
+    const rightDiagonal = [
+      this.gameBoard.board[0][2],
+      this.gameBoard.board[1][1],
+      this.gameBoard.board[2][0],
+    ];
 
     const topRowWin = this.checkRowForWin(topRow);
     const middleRowWin = this.checkRowForWin(middleRow);
