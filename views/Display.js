@@ -2,6 +2,7 @@ export default class Display {
   constructor(gameController, gameBoard) {
     this.gameController = gameController;
     this.gameBoard = gameBoard;
+    this.listener = (e) => this.handleClicks(e);
   }
 
   renderGameBoard() {
@@ -19,33 +20,41 @@ export default class Display {
 
   assignIconToBoard() {
     const cells = document.querySelectorAll("[data-id]");
-    cells.addEventListener("click", this.handleClicks())
 
-  //   cells.forEach((element) => {
-  //     element.addEventListener("click", this.handleClicks())
-      
-  // });
-  
-  };
+    cells.forEach((element) => {
+      element.addEventListener("click", this.listener);
+    });
+  }
 
-  handleClicks() {
-    return function listener(e) {
-      const cellId = e.target.dataset.id;
+  getCellIndices(cellId) {
+    return {
+      outerIndex: Number(cellId.slice(0, 1)),
+      innerIndex: Number(cellId.slice(1, 2)),
+    };
+  }
 
-        const outerIndex = Number(cellId.slice(0, 1));
-        const innerIndex = Number(cellId.slice(1, 2));
-        console.log(outerIndex);
+  updateBoardUI(cell, symbol) {
+    this.announcePlayerTurn();
+    cell.textContent = symbol;
+  }
 
-        const symbol = this.gameController.playerMove(outerIndex, innerIndex);
-        if (symbol != null) {
-          this.announcePlayerTurn();
-          element.textContent = symbol;
-          this.gameController.winConditions();
-          this.announceWinner();
-          // this.disableGameboardClicks();
-        }
+  checkGameState() {
+    this.gameController.winConditions();
+    this.announceWinner();
+    this.disableGameboardClicks();
+  }
+
+  handleClicks(e) {
+    const cellId = e.target.dataset.id;
+
+    const { outerIndex, innerIndex } = this.getCellIndices(cellId);
+
+    const symbol = this.gameController.playerMove(outerIndex, innerIndex);
+
+    if (symbol != null) {
+      this.updateBoardUI(e.target, symbol);
+      this.checkGameState();
     }
-    
   }
 
   playerAnnouncementPara() {
@@ -67,10 +76,10 @@ export default class Display {
   announceWinner() {
     let para = document.getElementById("player-announcement");
     if (this.gameController.isWinConditionMet) {
-      if(!this.gameController.isPlayer1Active) {
-        para.textContent = "Player 1 wins the game!"
+      if (!this.gameController.isPlayer1Active) {
+        para.textContent = "Player 1 wins the game!";
       } else {
-        para.textContent = "Player 2 wins the game!"
+        para.textContent = "Player 2 wins the game!";
       }
     }
   }
@@ -78,10 +87,9 @@ export default class Display {
   disableGameboardClicks() {
     const cells = document.querySelectorAll("[data-id]");
     cells.forEach((element) => {
-      if(this.gameController.isWinConditionMet) {
-        console.log("Are we here");
-        element.removeEventListener('click', this.handleClicks, true)
-      }     
+      if (this.gameController.isWinConditionMet) {
+        element.removeEventListener("click", this.listener);
+      }
     });
   }
 }
