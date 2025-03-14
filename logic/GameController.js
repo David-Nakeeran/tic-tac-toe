@@ -26,19 +26,26 @@ export default class GameController {
   }
 
   winConditions() {
+    // rows
     const topRow = [...this.gameBoard.board[0]];
     const middleRow = [...this.gameBoard.board[1]];
     const bottomRow = [...this.gameBoard.board[2]];
 
-    let topRowWin = topRow.every((cell) => cell === topRow[0] && cell != "");
-    let middleRowWin = middleRow.every(
-      (cell) => cell === middleRow[0] && cell != ""
-    );
-    let bottomRowWin = bottomRow.every(
-      (cell) => cell === bottomRow[0] && cell != ""
-    );
+    // columns
+    const firstColumn = [];
+    const secondColumn = [];
+    const thirdColumn = [];
+
+    const topRowWin = this.checkRowForWin(topRow);
+    const middleRowWin = this.checkRowForWin(middleRow);
+    const bottomRowWin = this.checkRowForWin(bottomRow);
+
     if (topRowWin || middleRowWin || bottomRowWin) {
       this.isWinConditionMet = true;
     }
+  }
+
+  checkRowForWin(arr) {
+    return arr.every((cell) => cell === arr[0] && cell != "");
   }
 }
