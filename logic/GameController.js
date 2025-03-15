@@ -60,16 +60,26 @@ export default class GameController {
       this.gameBoard.board[2][0],
     ];
 
-    const topRowWin = this.checkRowForWin(topRow);
-    const middleRowWin = this.checkRowForWin(middleRow);
-    const bottomRowWin = this.checkRowForWin(bottomRow);
+    const winArray = [
+      topRow,
+      middleRow,
+      bottomRow,
+      firstColumn,
+      secondColumn,
+      thirdColumn,
+      leftDiagonal,
+      rightDiagonal,
+    ];
 
-    if (topRowWin || middleRowWin || bottomRowWin) {
-      this.isWinConditionMet = true;
+    for (let i = 0; i < winArray.length; i++) {
+      if (this.checkArrayForWin(winArray[i])) {
+        this.isWinConditionMet = true;
+        break;
+      }
     }
   }
 
-  checkRowForWin(arr) {
+  checkArrayForWin(arr) {
     return arr.every((cell) => cell === arr[0] && cell != "");
   }
 }
