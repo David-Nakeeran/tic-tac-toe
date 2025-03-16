@@ -1,6 +1,7 @@
 export default class GameController {
   constructor(gameBoard) {
     this.gameBoard = gameBoard;
+    this.isGameActive = false;
     this.isPlayer1Active = true;
     this.isWinConditionMet = false;
   }
