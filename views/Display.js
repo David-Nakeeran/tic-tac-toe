@@ -5,6 +5,37 @@ export default class Display {
     this.listener = (e) => this.handleClicks(e);
   }
 
+  renderStartButton() {
+    const btnContainer = document.getElementById("btn-container");
+
+    const startBtn = document.createElement("button");
+    startBtn.setAttribute("id", "start-btn");
+    startBtn.textContent = "Start Game";
+    btnContainer.append(startBtn);
+  }
+
+  renderRestartButton() {
+    const btnContainer = document.getElementById("btn-container");
+
+    const restartBtn = document.createElement("button");
+    restartBtn.setAttribute("id", "restart-btn");
+    btnContainer.append(restartBtn);
+  }
+
+  startGame() {
+    this.renderStartButton();
+    const startBtn = document.getElementById("start-btn");
+
+    startBtn.addEventListener("click", () => {
+      this.gameController.isGameActive = true;
+      if (this.gameController.isGameActive) {
+        this.playerAnnouncementPara();
+        this.announcePlayerTurn();
+        this.assignIconToBoard();
+      }
+    });
+  }
+
   renderGameBoard() {
     const wrapper = document.getElementById("wrapper");
 
