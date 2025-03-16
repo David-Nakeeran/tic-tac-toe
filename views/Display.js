@@ -32,6 +32,7 @@ export default class Display {
         this.playerAnnouncementPara();
         this.announcePlayerTurn();
         this.assignIconToBoard();
+        startBtn.style.display = "none";
       }
     });
   }
