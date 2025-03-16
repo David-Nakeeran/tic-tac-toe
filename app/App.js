@@ -12,17 +12,18 @@ export default class App {
     this.display = new Display(this.gameController, this.gameBoard);
   }
 
-  start() {
-      this.display.renderGameBoard();
-      this.display.playerAnnouncementPara();
-      this.display.announcePlayerTurn();
-      this.display.assignIconToBoard();
+  InitialiseGame() {
+    this.display.renderGameBoard();
+    this.display.startGame();
+  }
+
+  startGame() {
+    this.InitialiseGame();
   }
 }
 
 /*
 Chores
-check for win conditions and ties
 button to start playing the game
 button to restart the game
 show winner or tie for end go game
