@@ -48,6 +48,18 @@ export default class GameController {
   checkArrayForWin(arr) {
     return arr.every((cell) => cell === arr[0] && cell != "");
   }
+
+  resetGameState() {
+    this.isGameActive = false;
+    this.isPlayer1Active = true;
+    this.isWinConditionMet = false;
+
+    for (let i = 0; i < this.gameBoard.board.length; i++) {
+      for (let j = 0; j < this.gameBoard.board[i].length; j++) {
+        this.gameBoard.resetGameboard([i], [j]);
+      }
+    }
+  }
 }
 // rows
 // const topRow = [...this.gameBoard.board[0]];
