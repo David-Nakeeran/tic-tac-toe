@@ -4,6 +4,7 @@ export default class GameController {
     this.isGameActive = false;
     this.isPlayer1Active = true;
     this.isWinConditionMet = false;
+    this.isTie = false;
   }
 
   activePlayerSymbol() {
@@ -45,8 +46,21 @@ export default class GameController {
       }
     }
   }
+
   checkArrayForWin(arr) {
     return arr.every((cell) => cell === arr[0] && cell != "");
+  }
+
+  CheckingForGameTie() {
+    for (let i = 0; i < this.gameBoard.board.length; i++) {
+      if (this.checkArrayForTie(this.gameBoard.board[i])) {
+        this.isGameTie = true;
+      }
+    }
+  }
+
+  checkArrayForTie(arr) {
+    return arr.every((cell) => cell != "");
   }
 
   resetGameState() {
