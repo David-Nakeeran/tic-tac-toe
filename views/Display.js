@@ -19,7 +19,26 @@ export default class Display {
 
     const restartBtn = document.createElement("button");
     restartBtn.setAttribute("id", "restart-btn");
+    restartBtn.textContent = "Restart game";
     btnContainer.append(restartBtn);
+  }
+
+  restartGame() {
+    this.renderRestartButton();
+    const restartBtn = document.getElementById("restart-btn");
+    restartBtn.addEventListener("click", () => {
+      this.gameController.resetGameState();
+      const cells = document.querySelectorAll("[data-id]");
+      cells.forEach((element) => {
+        element.textContent = "";
+      });
+      this.resetPlayerAnnouncementPara();
+      this.gameController.isGameActive = true;
+      if (this.gameController.isGameActive) {
+        this.announcePlayerTurn();
+        this.assignIconToBoard();
+      }
+    });
   }
 
   startGame() {
@@ -33,6 +52,7 @@ export default class Display {
         this.announcePlayerTurn();
         this.assignIconToBoard();
         startBtn.style.display = "none";
+        this.restartGame();
       }
     });
   }
@@ -82,7 +102,7 @@ export default class Display {
     const { outerIndex, innerIndex } = this.getCellIndices(cellId);
 
     const symbol = this.gameController.playerMove(outerIndex, innerIndex);
-
+    console.log(symbol);
     if (symbol != null) {
       this.updateBoardUI(e.target, symbol);
       this.checkGameState();
@@ -94,6 +114,11 @@ export default class Display {
     const para = document.createElement("para");
     para.setAttribute("id", "player-announcement");
     announcement.append(para);
+  }
+
+  resetPlayerAnnouncementPara() {
+    const announcement = document.getElementById("player-announcement");
+    announcement.textContent = "";
   }
 
   announcePlayerTurn() {
