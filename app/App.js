@@ -21,10 +21,3 @@ export default class App {
     this.InitialiseGame();
   }
 }
-
-/*
-Chores
-button to start playing the game
-button to restart the game
-show winner or tie for end go game
-*/
