@@ -51,11 +51,10 @@ export default class GameController {
     return arr.every((cell) => cell === arr[0] && cell != "");
   }
 
-  CheckingForGameTie() {
-    for (let i = 0; i < this.gameBoard.board.length; i++) {
-      if (this.checkArrayForTie(this.gameBoard.board[i])) {
-        this.isGameTie = true;
-      }
+  checkingForGameTie() {
+    if (this.checkArrayForTie(this.gameBoard.board.flat())) {
+      console.log(this.gameBoard.board.flat());
+      this.isTie = true;
     }
   }
 
@@ -67,6 +66,7 @@ export default class GameController {
     this.isGameActive = false;
     this.isPlayer1Active = true;
     this.isWinConditionMet = false;
+    this.isTie = false;
 
     for (let i = 0; i < this.gameBoard.board.length; i++) {
       for (let j = 0; j < this.gameBoard.board[i].length; j++) {
