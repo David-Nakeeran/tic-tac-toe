@@ -21,8 +21,4 @@ export default class Gameboard {
   updateBoard(outerIndex, innerIndex, symbol) {
     this.board[outerIndex][innerIndex] = symbol;
   }
-
-  resetGameboard(outerIndex, innerIndex) {
-    this.board[outerIndex][innerIndex] = "";
-  }
 }
