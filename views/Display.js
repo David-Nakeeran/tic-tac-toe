@@ -16,7 +16,7 @@ export default class Display {
 
   renderRestartButton() {
     const btnContainer = document.getElementById("btn-container");
-
+    document.getElementById("restart-btn");
     const restartBtn = document.createElement("button");
     restartBtn.setAttribute("id", "restart-btn");
     restartBtn.textContent = "Restart game";
