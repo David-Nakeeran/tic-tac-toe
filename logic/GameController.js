@@ -68,11 +68,11 @@ export default class GameController {
     this.isWinConditionMet = false;
     this.isTie = false;
 
-    for (let i = 0; i < this.gameBoard.board.length; i++) {
-      for (let j = 0; j < this.gameBoard.board[i].length; j++) {
-        this.gameBoard.resetGameboard([i], [j]);
-      }
-    }
+    this.gameBoard.board = [
+      ["", "", ""],
+      ["", "", ""],
+      ["", "", ""],
+    ];
   }
 }
 // rows
