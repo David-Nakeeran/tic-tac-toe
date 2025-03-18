@@ -47,6 +47,7 @@ export default class Display {
 
     startBtn.addEventListener("click", () => {
       this.gameController.isGameActive = true;
+
       if (this.gameController.isGameActive) {
         this.playerAnnouncementPara();
         this.announcePlayerTurn();
@@ -91,9 +92,15 @@ export default class Display {
   }
 
   checkGameState() {
-    this.gameController.winConditions();
-    this.announceWinner();
-    this.disableGameboardClicks();
+    this.gameController.checkingForGameTie();
+    if (this.gameController.isTie) {
+      this.announceTie();
+      this.disableGameboardClicks();
+    } else {
+      this.gameController.winConditions();
+      this.announceWinner();
+      this.disableGameboardClicks();
+    }
   }
 
   handleClicks(e) {
@@ -102,7 +109,6 @@ export default class Display {
     const { outerIndex, innerIndex } = this.getCellIndices(cellId);
 
     const symbol = this.gameController.playerMove(outerIndex, innerIndex);
-    console.log(symbol);
     if (symbol != null) {
       this.updateBoardUI(e.target, symbol);
       this.checkGameState();
@@ -132,6 +138,7 @@ export default class Display {
 
   announceWinner() {
     let para = document.getElementById("player-announcement");
+
     if (this.gameController.isWinConditionMet) {
       if (!this.gameController.isPlayer1Active) {
         para.textContent = "Player 1 wins the game!";
@@ -141,10 +148,16 @@ export default class Display {
     }
   }
 
+  announceTie() {
+    let para = document.getElementById("player-announcement");
+
+    para.textContent = "Game is a tie!";
+  }
+
   disableGameboardClicks() {
     const cells = document.querySelectorAll("[data-id]");
     cells.forEach((element) => {
-      if (this.gameController.isWinConditionMet) {
+      if (this.gameController.isWinConditionMet || this.gameController.isTie) {
         element.removeEventListener("click", this.listener);
       }
     });
