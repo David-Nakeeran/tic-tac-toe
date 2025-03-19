@@ -9,18 +9,68 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: #111827;
+}
+
+/* Typography */
+header {
+  position: absolute;
+  top: 0;
+  margin-top: 3.125em;
+}
+h1 {
+  color: #ffffff;
+}
+
+.announcement {
+  margin-bottom: 2.5em;
+}
+
+.player-announcement {
+  color: #ffffff;
+  font-size: 1.5rem;
 }
 
 .wrapper {
   display: grid;
-  gap: 10px;
+  gap: 0.625em;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   width: min(90vw, 450px);
   height: min(90vw, 450px);
-  border: 1px solid #eb0404;
+  margin-bottom: 2.5em;
 }
 
-button {
-  font-size: 2vw;
+.cells {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  background-color: #28a9f1;
+  color: #04131c;
+  font-size: 3.75rem;
+}
+
+.game-btn {
+  background: none;
+  border: none;
+  background-color: #04131c;
+  color: #ffffff;
+  border: 0.188em solid #28a9f1;
+  border-radius: 0.5em;
+  padding: 0.625em 1.25em;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* Media Queries */
+@media (max-width: 480px) {
+  .game-btn {
+    font-size: 1.15rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .game-btn {
+    font-size: 0.9rem;
+  }
 }
