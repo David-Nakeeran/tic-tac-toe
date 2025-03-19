@@ -10,6 +10,7 @@ export default class Display {
 
     const startBtn = document.createElement("button");
     startBtn.setAttribute("id", "start-btn");
+    startBtn.setAttribute("class", "game-btn");
     startBtn.textContent = "Start Game";
     btnContainer.append(startBtn);
   }
@@ -19,6 +20,7 @@ export default class Display {
     document.getElementById("restart-btn");
     const restartBtn = document.createElement("button");
     restartBtn.setAttribute("id", "restart-btn");
+    restartBtn.setAttribute("class", "game-btn");
     restartBtn.textContent = "Restart game";
     btnContainer.append(restartBtn);
   }
@@ -64,9 +66,10 @@ export default class Display {
     for (let i = 0; i < this.gameBoard.board.length; i++) {
       const outIndex = [i];
       for (let j = 0; j < this.gameBoard.board[i].length; j++) {
-        const div = document.createElement("button");
-        div.setAttribute("data-id", `${outIndex}${j}`);
-        wrapper.append(div);
+        const cells = document.createElement("button");
+        cells.setAttribute("data-id", `${outIndex}${j}`);
+        cells.setAttribute("class", `cells`);
+        wrapper.append(cells);
       }
     }
   }
@@ -92,13 +95,16 @@ export default class Display {
   }
 
   checkGameState() {
+    this.gameController.winConditions();
     this.gameController.checkingForGameTie();
-    if (this.gameController.isTie) {
-      this.announceTie();
-      this.disableGameboardClicks();
-    } else {
-      this.gameController.winConditions();
+    if (this.gameController.isWinConditionMet) {
       this.announceWinner();
+      this.disableGameboardClicks();
+    } else if (
+      !this.gameController.isWinConditionMet &&
+      this.gameController.isTie
+    ) {
+      this.announceTie();
       this.disableGameboardClicks();
     }
   }
@@ -119,6 +125,7 @@ export default class Display {
     const announcement = document.getElementById("announcement");
     const para = document.createElement("para");
     para.setAttribute("id", "player-announcement");
+    para.setAttribute("class", "player-announcement");
     announcement.append(para);
   }
 
