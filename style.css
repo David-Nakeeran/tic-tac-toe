@@ -1,4 +1,5 @@
 * {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
@@ -7,18 +8,18 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 100vh;
   background-color: #111827;
 }
 
 /* Typography */
 header {
-  position: absolute;
-  top: 0;
-  margin-top: 3.125em;
+  padding-top: 2em;
+  margin-bottom: 3.125em;
 }
 h1 {
+  font-size: 4.5rem;
   color: #ffffff;
 }
 
@@ -28,7 +29,7 @@ h1 {
 
 .player-announcement {
   color: #ffffff;
-  font-size: 1.5rem;
+  font-size: 2.2rem;
 }
 
 .wrapper {
@@ -38,7 +39,7 @@ h1 {
   grid-template-rows: repeat(3, 1fr);
   width: min(90vw, 450px);
   height: min(90vw, 450px);
-  margin-bottom: 2.5em;
+  margin-bottom: 3em;
 }
 
 .cells {
@@ -58,19 +59,54 @@ h1 {
   border: 0.188em solid #28a9f1;
   border-radius: 0.5em;
   padding: 0.625em 1.25em;
-  font-size: 1.25rem;
+  font-size: 2rem;
   font-weight: bold;
 }
 
+.btn-container {
+  margin-bottom: 5em;
+}
+
 /* Media Queries */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  h1 {
+    font-size: 4.2rem;
+  }
+
+  .player-announcement {
+    font-size: 2rem;
+  }
+
   .game-btn {
-    font-size: 1.15rem;
+    font-size: 1.8rem;
+  }
+}
+@media (max-width: 480px) {
+  h1 {
+    font-size: 3.5rem;
+  }
+
+  .player-announcement {
+    font-size: 1.8rem;
+  }
+  .game-btn {
+    font-size: 1.6rem;
   }
 }
 
 @media (max-width: 320px) {
+  h1 {
+    font-size: 3.8rem;
+  }
+
+  .announcement {
+    margin-bottom: 1em;
+  }
+  .player-announcement {
+    font-size: 2rem;
+  }
+
   .game-btn {
-    font-size: 0.9rem;
+    font-size: 1.5rem;
   }
 }
